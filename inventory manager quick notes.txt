@@ -1,0 +1,32 @@
+h2database is what was used with WGU
+in memory
+
+
+Tables:
+
+Items
+	ID(PK) int unsigned
+	Quantity smallint unsigned (tiny int COULD be used here but smallint will allow more flexibility)
+	Weight smallint unsigned
+	Qualities varchar(255)
+	Description varchar(255)
+	isCurrency boolean (this will allow for currencies to use the same table but also be separate from other items)
+	
+	
+	
+Characters
+	Name
+	Class
+	Stats
+	Carry Weight (could be displayed as calculation)
+	Currencies? May want to add a separate page for these or set it as a 
+	
+	
+	IDEAS
+	
+	entityManager.find(example.class, 1) uses class, primary key. Otherwise returns null
+	If using a player name for the primary key, could only allow the creation of a character if their name returns null in this (unique character name)
+	
+	Could also potentially use a variable with @GetMapping to allow procedural creation of links for the characters.
+	Only potential issue with this would be how to keep DM's inventory "hidden". Honor code? Different class?
+	Would be nice to have a GUI to allow players to check each other's inventory 
