@@ -2,17 +2,55 @@ h2database is what was used with WGU
 in memory
 
 
+Questions:
+
+	How will transferring items between party members work if the item is the same type? For example, player
+	1 has 5 arrows, player 2 has 3 arrows. How do we ensure that the items are increased in amount and not just
+	added as a new item?
+	
+	Possible solution: When transferring items from player to player, check if there are items that have the same id.
+	If this is the case, then decrement the amount of items in one player's inventory and increment the amount in the 
+	other player's inventory by the same amount. This way, an insertion is not needed.
+	
+	Player 1 gives x of an item to player 2
+	
+	if player2 already has item of this id, increment player 2's quantity by x. 
+	(if row contains item id AND owner_id, which is the composite id for the item)
+	
+	if player does not have the item, add the item as a new row and remove from the previous player if not DM
+	If the player is DM, NEVER decrement or increment from them.
+	This could be achieved by checking if the owner_id is null, which would mean the item is "owned"
+	by the DM. Could also use a unique ID number for the DM.
+	
+	PSEUDOCODE:
+		If owner_id exists:
+			player1.decrement(itemID, quantity)
+		player2.increment(itemID, quantity)
+		
+
+			
+	
+			
+
+
+
+
 Tables:
 
 Items
-	ID(PK) int unsigned
-	Quantity smallint unsigned (tiny int COULD be used here but smallint will allow more flexibility)
-	Weight smallint unsigned
-	Qualities varchar(255)
-	Description varchar(255)
-	isCurrency boolean (this will allow for currencies to use the same table but also be separate from other items)
+	id(CK) int unsigned
+	owned_by(CK): tinyint unsigned (will be the ID of a player) DM will either be given an ID as well, or they will be null
+	name
+	quantity smallint unsigned (tiny int COULD be used here but smallint will allow more flexibility)
+	weight smallint unsigned
+	qualities varchar(255)
+	description varchar(255)
+	is_currency boolean (this will allow for currencies to use the same table but also be separate from other items)
 	
-	
+
+*** subject to change
+Items will be in a single central repository, with the player ownership being determined 
+
 	
 Characters
 	Name
